@@ -1,4 +1,4 @@
-package com.judy.netty.fristexample.server;
+package com.judy.netty.firstexample.server;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
