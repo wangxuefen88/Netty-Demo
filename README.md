@@ -3,7 +3,7 @@ First example-2019年5月10日09:16:11-客户端和服务端实现简单通信
 
 Thrid example-2019年5月11日15:27:42-多个客户端与服务端实现广播通信
 
-## Netty-Demo 多个客户端与服务端实现广播通信
+## 1. Netty-Demo 多个客户端与服务端实现广播通信
 重点内容
 
 ### 1. channelGroup
@@ -44,4 +44,43 @@ writeAndFlush 表示把数据从缓冲区发送到客户端,write表示发送到
    void channelRead0(ChannelHandlerContext ctx, String msg)--->具体执行业务逻辑部分,也就是连接成功之后必须走的方法
    
    
-            
+ 
+## 2. Netty-Demo 心跳机制
+
+主要更改的地方在服务端
+
+在重写void initChannel(SocketChannel ch)方法中,引入IdleStateHandler()方法,他表示空闲状态监测处理器
+
+在具体的handler处理器中extends的是ChannelInboundHandlerAdapter,也就是SimpleChannelInboundHandler的父类
+
+重写userEventTriggered(ChannelHandlerContext ctx, Object evt)方法,我们根据返回的状态来判断服务端是什么状态
+
+
+ 
+    @Override
+     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+        if (evt instanceof IdleStateEvent) {
+            IdleStateEvent event = (IdleStateEvent) evt;
+            String eventType = null;
+            switch (event.state()) {
+                case READER_IDLE:
+                    eventType = "读空闲";
+                    break;
+                case WRITER_IDLE:
+                    eventType = "写空闲";
+                    break;
+                case ALL_IDLE:
+                    eventType = "读写空闲";
+                    break;
+            }
+            System.out.println(ctx.channel().remoteAddress()+"超时操作:"+eventType);
+            ctx.channel().close();
+        }
+    }
+
+
+
+
+
+
+
