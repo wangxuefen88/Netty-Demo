@@ -25,8 +25,6 @@ public class TestServer {
             ServerBootstrap serverBootstrap = new ServerBootstrap();
             //一个用于连接,一个用于做处理,childHandler表示自己要做的业务处理部分
             serverBootstrap.group(bossGroup, workGroup).channel(NioServerSocketChannel.class).childHandler(new TestServerInitializer());
-
-            //绑定端口
             ChannelFuture channelFuture = serverBootstrap.bind(8899).sync();
             channelFuture.channel().closeFuture().sync();
         }finally {

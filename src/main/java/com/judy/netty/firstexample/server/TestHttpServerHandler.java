@@ -71,4 +71,10 @@ public class TestHttpServerHandler extends SimpleChannelInboundHandler<HttpObjec
         System.out.println("exceptionCaught");
         super.exceptionCaught(ctx, cause);
     }
+
+    @Override
+    public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("handlerRemoved");
+        super.handlerRemoved(ctx);
+    }
 }

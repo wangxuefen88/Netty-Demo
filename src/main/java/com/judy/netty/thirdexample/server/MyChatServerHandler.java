@@ -52,7 +52,7 @@ public class MyChatServerHandler extends SimpleChannelInboundHandler<String> {
 
     /**
      * 连接断开
-     *
+     * 如果client断掉,server端不会触发handlerRemoved
      * @param ctx
      */
     @Override
