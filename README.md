@@ -55,6 +55,7 @@ writeAndFlush 表示把数据从缓冲区发送到客户端,write表示发送到
 
 重写userEventTriggered(ChannelHandlerContext ctx, Object evt)方法,我们根据返回的状态来判断服务端是什么状态
 
+发起人是ping,返回成为pong
 
  
     @Override
@@ -80,6 +81,9 @@ writeAndFlush 表示把数据从缓冲区发送到客户端,write表示发送到
 
 
 
+## 3. Netty-Demo 实现webSocket功能
+1重要的handler
+WebSocketServerProtocolHandler
 
 
 
