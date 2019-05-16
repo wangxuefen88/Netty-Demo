@@ -57,20 +57,32 @@ public class NioClient {
                          * 由于客户端的从键盘输入是单线程的,所以必须另起一个线程负责客户端的键盘输入
                          */
                         ExecutorService executorService = Executors.newSingleThreadExecutor(Executors.defaultThreadFactory());
-                        executorService.submit(()->{{
-                            while (true){
-                                byteBuffer.clear();
-                                InputStreamReader inputStreamReader = new InputStreamReader(System.in);
-                                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                                String sendMessage = bufferedReader.readLine();
-                                byteBuffer.put(sendMessage.getBytes());
-                                byteBuffer.flip();
-                                clientChannel.write(byteBuffer);
+                        executorService.submit(() -> {
+                            {
+                                while (true) {
+                                    byteBuffer.clear();
+                                    InputStreamReader inputStreamReader = new InputStreamReader(System.in);
+                                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                                    String sendMessage = bufferedReader.readLine();
+                                    byteBuffer.put(sendMessage.getBytes());
+                                    byteBuffer.flip();
+                                    clientChannel.write(byteBuffer);
+                                }
                             }
-                        }});
+                        });
+                    }
+                    clientChannel.register(selector, SelectionKey.OP_READ);
+                } else if (selectionKey.isReadable()) {
+                    SocketChannel client = (SocketChannel) selectionKey.channel();
+                    ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+                    int read = client.read(byteBuffer);
+                    if (read > 0) {
+                        String receiveMessage = new String(byteBuffer.array(), 0, read);
+                        System.out.println(receiveMessage);
                     }
                 }
             }
+            selectionKeys.clear();
         }
 
     }
