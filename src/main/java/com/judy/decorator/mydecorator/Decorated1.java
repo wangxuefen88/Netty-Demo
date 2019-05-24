@@ -5,15 +5,15 @@ package com.judy.decorator.mydecorator;
  * @Description:
  * @Date: Created in 8:02 2019/5/24
  */
-public class Decorated1 implements BeDecorated{
-    private BeDecorated beDecorated;
-    public Decorated1(BeDecorated beDecorated ) {
-        this.beDecorated = beDecorated;
+public class Decorated1 extends Decorated{
+
+    public Decorated1(BeDecorated beDecorated) {
+        super(beDecorated);
     }
 
     @Override
     public void dress() {
-        this.beDecorated .dress();
+        super.dress();
         MyDecorated1();
     }
 

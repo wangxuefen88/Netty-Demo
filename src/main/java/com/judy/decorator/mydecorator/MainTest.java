@@ -7,7 +7,7 @@ package com.judy.decorator.mydecorator;
  */
 public class MainTest {
     public static void main(String[] args){
-        BeDecorated beDecorated = new Decorated1(new BasicStyles());
+        BeDecorated beDecorated = new Decorated1(new Decorated2(new BasicStyles()));
         beDecorated.dress();
     }
 }
