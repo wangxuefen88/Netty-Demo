@@ -15,7 +15,7 @@ public class TestServerInitializer extends ChannelInitializer<SocketChannel>{
     @Override
     protected void initChannel(SocketChannel socketChannel) throws Exception {
         //每一个pipeline里面都可以有多个childHandler
-          ChannelPipeline channelPipeline = socketChannel.pipeline();
+        ChannelPipeline channelPipeline = socketChannel.pipeline();
         channelPipeline.addLast("httpServerCodec", new HttpServerCodec());
         channelPipeline.addLast("testHttpServerHandler",new TestHttpServerHandler());
     }

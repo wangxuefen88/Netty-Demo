@@ -6,7 +6,7 @@ import io.netty.handler.timeout.IdleStateEvent;
 
 /**
  * @Author: judy
- * @Description:
+ * @Description: 心跳检测
  * @Date: Created in 16:31 2019/5/11
  */
 public class MyFourthChatServerHandler extends ChannelInboundHandlerAdapter {

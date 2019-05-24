@@ -16,6 +16,7 @@ public class MyServerHandler extends SimpleChannelInboundHandler<String> {
         ctx.channel().writeAndFlush("form server");
     }
 
+
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         super.exceptionCaught(ctx, cause);

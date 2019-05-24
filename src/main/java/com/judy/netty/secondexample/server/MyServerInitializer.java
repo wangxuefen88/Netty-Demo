@@ -11,15 +11,15 @@ import io.netty.util.CharsetUtil;
 
 /**
  * @Author: judy
- * @Description: 初始化
+ * @Description: 初始化, MyServerInitializer这个类并不是处理器, 正真的处理器是LengthFieldBasedFrameDecoder等下面的对象
  * @Date: Created in 23:47 2019/5/9
  */
-public class MyServerInitializer  extends ChannelInitializer<SocketChannel>{
+public class MyServerInitializer extends ChannelInitializer<SocketChannel> {
 
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();
-        pipeline.addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE,0,4,0,4));
+        pipeline.addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));
         pipeline.addLast(new LengthFieldPrepender(4));
         pipeline.addLast(new StringDecoder(CharsetUtil.UTF_8));
         pipeline.addLast(new StringEncoder(CharsetUtil.UTF_8));
